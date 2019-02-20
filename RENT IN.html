@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <script src="jquery-1.11.3.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyBRbZU_NKIh8Yhx_jiAnljGPkf0J7SBFbM",
+        authDomain: "boboassignment.firebaseapp.com",
+        databaseURL: "https://boboassignment.firebaseio.com",
+        projectId: "boboassignment",
+        storageBucket: "boboassignment.appspot.com",
+        messagingSenderId: "857800639946"
+      };
+      firebase.initializeApp(config);
+    </script>
+    <style type="text/css">
+        .wrapper {
+            width: 600px;
+            margin: 10px left ;
+            height : 10px;
+
+        }
+
+            .wrapper > ul#results li {
+            margin: 1px 0;
+            background-color  : #00FEFA;
+            padding: 20px;
+            list-style: ;
+            }
+
+        button {
+            padding: 8px 20px;
+            background: #fbfbfb;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            height: 37px;
+            min-width: 130px;
+        }
+
+            button:hover, button:active, button:focus {
+                background: #f3f3f3;
+                outline: none;
+            }
+
+            .web_dialog_overlay
+{
+   position: fixed;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   left: 0;
+   height: 100%;
+   width: 100%;
+   margin: 0;
+   padding: 0;
+   background: #000000;
+   opacity: .15;
+   filter: alpha(opacity=15);
+   -moz-opacity: .15;
+   z-index: 101;
+   display: none;
+}
+.web_dialog
+{
+   display: none;
+   position: fixed;
+   width: 500px;
+   height: 250px;
+   top: 50%;
+   left: 50%;
+   margin-left: -190px;
+   margin-top: -100px;
+   background-color: #ffffff;
+   border: 2px solid #336699;
+   padding: 0px;
+   z-index: 102;
+   font-family: Verdana;
+   font-size: 10pt;
+}
+.web_dialog_title
+{
+   border-bottom: solid 2px #336699;
+   background-color: #336699;
+   padding: 4px;
+   color: White;
+   font-weight:bold;
+}
+.web_dialog_title a
+{
+   color: White;
+   text-decoration: none;
+}
+.align_right
+{
+   float: right;
+}
+    </style>
+  <script src="AccountFirebase.js"></script>
+  <script type="text/javascript">
+
+    var $EditPointer;
+    $(function () {
+        GetHouses();
+        $(document.body).on('click', '.Edit', function (e) {
+            $EditPointer = $(this);
+            var ids = $(this).data('id');
+            var arr = ids.split("|");
+            $("#messageEdit").html('');
+			      $('#hdnID').val(arr[0]);
+			      $('#hdnuID').val(arr[1]);
+            $('#State').val(arr[2]);
+            $('#City').val(arr[3]);
+            $('#PostalCode').val(arr[4]);
+            $('#HouseNumber').val(arr[5]);
+            $('#StreetName').val(arr[6]);
+            $('#Rental').val(arr[7]);
+
+            ShowDialog(true);
+            e.preventDefault();
+        });
+
+
+        $("#btnClose").click(function (e) {
+            HideDialog();
+            e.preventDefault();
+        });
+
+        $("#btnEdit").click(function (e) {
+          var id = $("#hdnID").val();
+			    var uId = $("#hdnuID").val();
+          var state = $("#State").val();
+          var city = $("#City").val();
+          var postalcode = $("#PostalCode").val();
+          var housenumber= $("#HouseNumber").val();
+          var streetname = $("#StreetName").val();
+          var rental = $("#Rental").val();
+
+
+        if (state == "" && city == ""  && postalcode == "" && housenumber == "" && streetname == "" && rental == "")
+                $("#messageEdit").html("<h4 style=\"color:red\">Please fill in the details</h4>");
+
+            else {
+                var obj = new Object();
+                obj.State = state;
+                obj.City = city;
+                obj.PostalCode = postalcode;
+                obj.HouseNumber = housenumber;
+                obj.StreetName = streetname;
+                obj.Rental = rental;
+  			       	obj.Uid = user.uid;
+
+
+                var updates = {};
+				        updates['/user-houses/' + uId + '/' + id] = obj;
+                updates['/houses/' + id] = obj;
+
+
+                firebase.database().ref().update(updates).then(function() {
+                    $("#messageEdit").html('<h4 style=\"color:red\">Update Successfully</h4>');
+
+
+                      $EditPointer.closest('li').html(state + "  " + city + "  " + postalcode+ "  " + housenumber+ "  " + streetname+ "  " + rental+ '  <a href=\"#\" class=\"Edit\" data-id=\"' + id +"|" +uId +"|" +state + '|' + city + '|' +postalcode
+                      + '|' +housenumber+ '|' +streetname+ '|' +rental  + '\">Edit</a>  <a href=\"#\" class=\"Delete\" data-id=\"' + id +"|" +uId +'\">Delete</a>');
+
+                      $("#State").val("");
+                      $("#City").val("");
+                      $("#PostalCode").val("");
+                      $("#HouseNumber").val("");
+                      $("#StreetName").val("");
+                      $("#Rental").val("");
+                });
+
+
+            }
+        });
+
+
+        $(document.body).on('click', '.Delete', function (e) {
+
+
+            var $t = $(this);
+            var ids = $(this).data('id');
+
+            var arr = ids.split("|");
+			      var id = arr[0];
+			      var uId = arr[1];
+
+
+			      var updates = {};
+			      updates['/user-houses/' + uId + '/' + id] = null;
+                updates['/houses/' + id] = null;
+
+
+                firebase.database().ref().update(updates).then(function() {
+                    $("#message").html('<h4 style=\"color:red\">Deleted Successfully</h4>');
+                    $t.closest('li').remove();
+                });
+
+
+        });
+    });
+
+
+    function GetHouses() {
+
+        $('.animation_image').show();
+
+		  var  dataCities = firebase.database().ref('houses').orderByChild("State");
+
+
+		dataCities.on('child_added', function(data) {
+
+
+
+		$("#results").append('<li>'
+    +  "State:"   + data.val().State
+    + " City: " + data.val().City
+    + " Postal Code: " + data.val().PostalCode
+    + " House Number: " + data.val().HouseNumber
+    + " Street Name " + data.val().StreetName
+    + " Rent :RM" + data.val().Rental
+);
+     });
+
+        $('.animation_image').hide();
+    }
+
+
+    function ShowDialog(modal) {
+        $("#overlay").show();
+        $("#dialog").fadeIn(300);
+
+        if (modal) {
+            $("#overlay").unbind("click");
+        }
+        else {
+            $("#overlay").click(function (e) {
+                HideDialog();
+            });
+        }
+    }
+
+    function HideDialog() {
+        $("#overlay").hide();
+        $("#dialog").fadeOut(300);
+    }
+
+    </script>
+</head>
+<body>  <span id="message"></span>
+<br />
+<div class="wrapper">
+<ul id="results"></ul>
+</body>
+</html>

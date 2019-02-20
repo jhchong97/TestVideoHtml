@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Email/Password Authentication Example</title>
+	<meta charset="utf-8" />
+  <script src="jquery-1.11.3.min.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyBRbZU_NKIh8Yhx_jiAnljGPkf0J7SBFbM",
+      authDomain: "boboassignment.firebaseapp.com",
+      databaseURL: "https://boboassignment.firebaseio.com",
+      projectId: "boboassignment",
+      storageBucket: "boboassignment.appspot.com",
+      messagingSenderId: "857800639946"
+    };
+    firebase.initializeApp(config);
+  </script>
+    <script type="text/javascript">
+
+
+    $(function () {
+
+	  initApp();
+
+	   $("#signout").click(function (e) {
+	      firebase.auth().signOut();
+	    });
+
+    });
+
+
+
+	function initApp() {
+      // Listening for auth state changes.
+      // [START authstatelistener]
+      firebase.auth().onAuthStateChanged(function(user) {
+
+        if (user) {
+          // User is signed in.
+
+		    var displayName = user.displayName;
+             var photoURL = user.photoURL;
+
+		   $("span").html("<h4 style=\"color:blue\">Welcome " + displayName + "</h4>");
+
+
+        }
+		 else
+			 window.location.href = "LoginRegister.html";
+      });
+      // [END authstatelistener]
+	  }
+    </script>
+</head>
+<body>
+    <h1>Firebase Email &amp; Password Authentication</h1>
+     <button id="signout">Sign out</button>
+    <br />
+    <br />
+	<span></span>
+
+
+
+</body>
+</html>

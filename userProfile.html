@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Profile</title>
+  <meta charset="utf-8" />
+  <link rel="stylesheet type="text/css href="editStyle.css">
+  <script src="jquery-1.11.3.min.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyBRbZU_NKIh8Yhx_jiAnljGPkf0J7SBFbM",
+      authDomain: "boboassignment.firebaseapp.com",
+      databaseURL: "https://boboassignment.firebaseio.com",
+      projectId: "boboassignment",
+      storageBucket: "boboassignment.appspot.com",
+      messagingSenderId: "857800639946"
+    };
+    firebase.initializeApp(config);
+  </script>
+
+  <script type = "text/javascript">
+  $(document).ready(function(){
+    initProfile();
+
+    $("#tmpSignOut").click(function () {
+       firebase.auth().signOut();
+     });
+
+     $("#ShowMyRentIn").click(function(){
+       getMyRentInData();
+     });
+
+  });
+
+  function initProfile(){
+    firebase.auth().onAuthStateChanged(function(user) {
+      //if (user==null){
+        //window.location.href = "xloginRegister.html"; //-------here chg name
+      //}
+      if(user){
+        var user = firebase.auth().currentUser; //get user information
+        name = user.displayName;
+        email = user.email;
+        photoURL = user.photoURL;
+        emailVerified = user.emailVerified;
+        uid = user.uid;
+
+        $("#profilePic").attr("src",photoURL);
+        $("#userName").html(name);
+        $("#userEmail").html(email);
+      }
+      else{
+        window.location.href = "login.html";
+      }
+    });
+  }
+
+//-------------------chg--------------------------------------
+  function getMyRentInData() {
+    var  dataCities = firebase.database().ref('houses').orderByChild("State");
+    dataCities.on('child_added', function(data) {
+      $("#results").append('<li>'
+      +  "State:"   + data.val().State
+      + " City: " + data.val().City
+      + " Postal Code: " + data.val().PostalCode
+      + " House Number: " + data.val().HouseNumber
+      + " Street Name " + data.val().StreetName
+      + " Rent :RM" + data.val().Rental
+);
+   });
+  }
+
+  function showMyRentInData(){
+    $("#showRentIn").click('click', '.Edit', function (e) {
+        $EditPointer = $(this);
+        var ids = $(this).data('id');
+        var arr = ids.split("|");
+        $("#messageEdit").html('');
+        $('#hdnID').val(arr[0]);
+        $('#hdnuID').val(arr[1]);
+        $('#State').val(arr[2]);
+        $('#City').val(arr[3]);
+        $('#PostalCode').val(arr[4]);
+        $('#HouseNumber').val(arr[5]);
+        $('#StreetName').val(arr[6]);
+        $('#Rental').val(arr[7]);
+
+        ShowDialog(true);
+        e.preventDefault();
+    });
+  }
+//--------------------------------------------------------------
+
+  </script>
+
+
+</head>
+
+<body>
+
+  <div class="up"><h1 class="title">User Profile</h1></div>
+
+  <div class="topRight"><a href="home.html" class="icon">Home</a>
+  <a href="profileSettings.html" class="icon">Change Profile</a></div>
+
+  <div class="profileInformation">
+    <img id="profilePic" alt="Profile Picture" class="profilePic">
+    <br><br>
+    <p>Name: <span id="userName"></span></p>
+    <p>Email: <span id="userEmail"></span></p>
+    <br>
+    <button id="ShowMyRentIn">My Rent In</button>
+    <button id="btnShowRentOut">My Rent Out</button>
+    <a href="back.html" >Rent out</a> <br>  <hr>
+    <a href="RENT IN.html" >Rent in</a> <br>  <hr>
+    <button id="tmpSignOut">Sign Out</button>
+    <br>
+    <span id="out"></span>
+
+  </div>
+
+</body>
+</html>

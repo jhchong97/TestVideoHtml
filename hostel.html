@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hostel</title>
+	<meta charset="utf-8" />
+  <script src="jquery-1.11.3.min.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyBRbZU_NKIh8Yhx_jiAnljGPkf0J7SBFbM",
+      authDomain: "boboassignment.firebaseapp.com",
+      databaseURL: "https://boboassignment.firebaseio.com",
+      projectId: "boboassignment",
+      storageBucket: "boboassignment.appspot.com",
+      messagingSenderId: "857800639946"
+    };
+    firebase.initializeApp(config);
+  </script>
+    <script src="AccountFirebase.js"></script>
+    <script type="text/javascript">
+    $(function () {
+      $("#done").click(function (e) {
+        var state = $("#State").val();
+        var city = $("#City").val();
+        var postalcode = $("#PostalCode").val();
+        var housenumber= $("#HouseNumber").val();
+        var streetname = $("#StreetName").val();
+        var rental = $("#Rental").val();
+        var image = $("#Image").val();
+              if (state == "" && city == ""  && postalcode == "" && housenumber == "" && streetname == "" && rental == ""&& image == ""  )
+        $("span").html("<h4 style=\"color:red\">Please enter the Details.</h4>");
+        else {
+          var user = firebase.auth().currentUser;
+          var obj = new Object();
+          obj.State = state;
+          obj.City = city;
+          obj.PostalCode = postalcode;
+          obj.HouseNumber = housenumber;
+          obj.StreetName = streetname;
+          obj.Rental = rental;
+          obj.Image =image;
+          obj.Uid = user.uid;
+
+
+          var newPostKey = firebase.database().ref().child('cities').push().key;
+          var updates = {};
+          updates['/houses/' + user.uid + '/' + newPostKey] = obj;
+          updates['/user-houses/' + user.uid + '/' + newPostKey] = obj;
+          firebase.database().ref().update(updates).then(function() {
+          alert("Details have been submitted");
+          $("#State").val("");
+          $("#City").val("");
+          $("#PostalCode").val("");
+          $("#HouseNumber").val("");
+          $("#StreetName").val("");
+          $("#Rental").val("");
+          $("#image").val("");
+          window.location.href = "Home.html";
+        });
+      }
+    });
+  });
+  </script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+      body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+      body, html {
+          height: 100%;
+          line-height: 1.8;
+    background-image: url("images/8.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+
+      }
+      .w3-bar .w3-button {
+          padding: 20px;
+      }
+      .r {
+        color:red;
+        font-size:150%;
+      }
+      .rd{
+        color:red;
+      }
+      .wh{
+        color:white;
+      }
+    </style>
+</head>
+<body>
+  <div class="w3-top">
+    <div class="w3-bar w3-white w3-card-2" id="myNavbar">
+      <a href="hostel.html" class="w3-bar-item w3-button w3-wide">Hostel</a>
+            <a href="room.html" class="w3-bar-item w3-button w3-wide">Room</a>
+                  <a href="apartment.html" class="w3-bar-item w3-button w3-wide">Apartment</a>
+                        <a href="condominium2.html" class="w3-bar-item w3-button w3-wide">Condominium</a>
+      <div class="w3-right w3-hide-small">
+        <a href="Home.html" class="w3-bar-item w3-button"><i class="fa fa-arrow-left"></i>Cancel Registration</a>
+        <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+      </div>
+    </div>
+  </div>
+<center><div class="w3-container w3-light-grey" style="padding:128px 16px; height:100%;  width:25%;id=contact" >
+    <h3 class="w3-center">Please fill in the detail :</h3>
+    <br />
+    <div class="w3-center" style="margin-top:40px">
+      <img src="images/state.png" alt="postalcode" height="30" width="30">
+      <input type="text" id="State" placeholder="Enter Your State" size="30" style="width: 300px;"/>
+      <br/>
+      <br />
+      <img src="images/tall.jpg" alt="postalcode" height="30" width="30">
+      <input type="text" id="City" placeholder="Enter Your City" size="30" style="width: 300px;"/>
+      <br/>
+      <br />
+      <img src="images/post.png" alt="postalcode" height="30" width="30">
+      <input type="number" id="PostalCode" placeholder="Enter Your Postal Code" size="50" style="width: 300px;"/>
+      <br/>
+      <br />
+      <img src="images/HOUSE-ICON.jpg" alt="postalcode" height="30" width="30">
+      <input type="text" id="HouseNumber" placeholder="Enter Your House Number" size="30" style="width: 300px;"/>
+      <br/>
+      <br />
+      <img src="images/street.png" alt="postalcode" height="30" width="30">
+      <input type="text" id="StreetName" placeholder="Enter Your StreetName" size="30" style="width: 300px;"/>
+      <br/>
+      <br />
+      <img src="images/money.png" alt="postalcode" height="30" width="30">
+      <input type="number" id="Rental" placeholder="Enter Your Rental" size="30" style="width: 300px"/>
+      <br/>
+      <br />
+      <i class="fa fa-camera fa-fw w3-xlarge w3-margin-right"></i>
+      <a class="w3-margin-right"> Choose Youry Profile Image :</a><br>
+    <input type="text" id="Image" placeholder="Enter Your photo URL" size="30" style="width: 300px;"/>
+      <br/>
+      <br/>
+      <button id="done" class="w3-button w3-grey w3-round">Done</button>
+      <span></span>
+      </center>
+    </div>
+  </div>
+</body>
+</html>

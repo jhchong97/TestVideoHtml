@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset = "utf-8">
+  <link rel="stylesheet type="text/css href="editStyle2.css">
+  <script src="jquery-3.2.1.min.js"></script>
+  <title>Video and Music Website Design</title>
+
+  <script type="text/javascript">
+  $(document).ready(function(){
+    $('#btn1').click(function(){
+      showLyrics1();
+    });
+    $('#btn2').click(function(){
+      showLyrics2();
+    });
+    $('#btn3').click(function(){
+      showLyrics3();
+    });
+    $('#btn4').click(function(){
+      showLyrics4();
+    });
+    $('#btn5').click(function(){
+      showLyrics5();
+    });
+    $('#btn6').click(function(){
+      showLyrics6();
+    });
+    $('#btn7').click(function(){
+      showLyrics7();
+    });
+    $('#btn8').click(function(){
+      showLyrics8();
+    });
+    $('#btn9').click(function(){
+      showLyrics9();
+    });
+    $('#btn10').click(function(){
+      showLyrics10();
+    });
+  });
+  //----------------------------------
+  var i = ["0","0","0","0","0","0","0","0","0","0","0"];//11 i (no use 0)
+  //---------------------------------------
+  function showLyrics1(){
+    if(i[1]%2==0){
+      $('#emb1').css('display', 'block');
+      i[1]++;
+    }
+    else{
+      $('#emb1').css('display', 'none');
+      i[1]--;
+    }
+  }
+  function showLyrics2(){
+    if(i[2]%2==0){
+      $('#emb2').css('display', 'block');
+      i[2]++;
+    }
+    else{
+      $('#emb2').css('display', 'none');
+      i[2]--;
+    }
+  }
+  function showLyrics3(){
+    if(i[3]%2==0){
+      $('#emb3').css('display', 'block');
+      i[3]++;
+    }
+    else{
+      $('#emb3').css('display', 'none');
+      i[3]--;
+    }
+  }
+  function showLyrics4(){
+    if(i[4]%2==0){
+      $('#emb4').css('display', 'block');
+      i[4]++;
+    }
+    else{
+      $('#emb4').css('display', 'none');
+      i[4]--;
+    }
+  }
+  function showLyrics5(){
+    if(i[5]%2==0){
+      $('#emb5').css('display', 'block');
+      i[5]++;
+    }
+    else{
+      $('#emb5').css('display', 'none');
+      i[5]--;
+    }
+  }
+  function showLyrics6(){
+    if(i[6]%2==0){
+      $('#emb6').css('display', 'block');
+      i[6]++;
+    }
+    else{
+      $('#emb6').css('display', 'none');
+      i[6]--;
+    }
+  }
+  function showLyrics7(){
+    if(i[7]%2==0){
+      $('#emb7').css('display', 'block');
+      i[7]++;
+    }
+    else{
+      $('#emb7').css('display', 'none');
+      i[7]--;
+    }
+  }
+  function showLyrics8(){
+    if(i[8]%2==0){
+      $('#emb8').css('display', 'block');
+      i[8]++;
+    }
+    else{
+      $('#emb8').css('display', 'none');
+      i[8]--;
+    }
+  }
+  function showLyrics9(){
+    if(i[9]%2==0){
+      $('#emb9').css('display', 'block');
+      i[9]++;
+    }
+    else{
+      $('#emb9').css('display', 'none');
+      i[9]--;
+    }
+  }
+  function showLyrics10(){
+    if(i[10]%2==0){
+      $('#emb10').css('display', 'block');
+      i[10]++;
+    }
+    else{
+      $('#emb10').css('display', 'none');
+      i[10]--;
+    }
+  }
+  </script>
+</head>
+
+<body> <!--see w3 school-->
+  <div class="topDiv">
+    <div class="topLeftDiv">
+      <span class="title">Video and Music Website Design</span>
+    </div>
+    <div class="topRightDiv">
+      <button id="userSetting" class="stickRight">
+        <img src="images\user_icon.png" class="icon" alt="user setting">
+      </button>
+    </div>
+  </div>
+
+  <div class="middleDiv">
+    <div class="videoDiv"> <!--video1-->
+      <video width="300" height="200" controls>
+        <source src="mp4\Alone.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+      </video></br>
+      <audio controls>
+        <source src="mp3\Alone.mp3" type="audio/mp3">
+      </audio></br>
+      <a href="https://www.youtube.com/watch?v=1-xGerv5FOk">Alan Walker - Alone</a></br>
+      <button id="btn1">Lyrics</button>
+      <span><embed src="lyrics\Alone.txt" class="lyricsEmb" id="emb1"></span>
+    </div>
+    <div class="videoDiv"> <!--video2-->
+      <video width="300" height="200" controls>
+        <source src="mp4\Faded.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+      </video></br>
+      <audio controls>
+        <source src="mp3\Faded.mp3" type="audio/mp3">
+      </audio></br>
+      <a href="https://www.youtube.com/watch?v=1-xGerv5FOk">Alan Walker - Faded</a></br>
+      <button id="btn2">Lyrics</button>
+      <span><embed src="lyrics\Faded.txt" class="lyricsEmb" id="emb2"></span>
+    </div>
+    <div class="videoDiv"> <!--video3-->
+      <video width="300" height="200" controls>
+        <source src="mp4\The Middle.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+      </video></br>
+      <audio controls>
+        <source src="mp3\The Middle.mp3" type="audio/mp3">
+      </audio></br>
+      <a href="https://www.youtube.com/watch?v=M3mJkSqZbX4">Zedd, Maren Morris, Grey - The Middle</a></br>
+      <button id="btn3">Lyrics</button>
+      <span><embed src="lyrics\The Middle.txt" class="lyricsEmb" id="emb3"></span>
+    </div>
+    <div class="videoDiv"> <!--video4-->
+      <video width="300" height="200" controls>
+        <source src="mp4\Don t Let Me Down.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+      </video></br>
+      <audio controls>
+        <source src="mp3\Don t Let Me Down.mp3" type="audio/mp3">
+      </audio></br>
+      <a href="https://www.youtube.com/watch?v=Io0fBr1XBUA">The Chainsmokers - Don't Let Me Down (Video) ft. Daya</a></br>
+      <button id="btn4">Lyrics</button>
+      <span><embed src="lyrics\Don t Let Me Down.txt" class="lyricsEmb" id="emb4"></span>
+    </div>
+    <div class="videoDiv"> <!--video5-->
+      <video width="300" height="200" controls>
+        <source src="mp4\Girls Like You.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+      </video></br>
+      <audio controls>
+        <source src="mp3\Girls Like You.mp3" type="audio/mp3">
+      </audio></br>
+      <a href="https://www.youtube.com/watch?v=aJOTlE1K90k">Maroon 5 - Girls Like You</a></br>
+      <button id="btn5">Lyrics</button>
+      <span><embed src="lyrics\Girls Like You.txt" class="lyricsEmb" id="emb5"></span>
+    </div>
+    <div class="videoDiv"> <!--video6-->
+      <video width="300" height="200" controls>
+        <source src="mp4\In My Feelings.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+      </video></br>
+      <audio controls>
+        <source src="mp3\In My Feelings.mp3" type="audio/mp3">
+      </audio></br>
+      <a href="https://www.youtube.com/watch?v=DRS_PpOrUZ4">Drake - In My Feelings</a></br>
+      <button id="btn6">Lyrics</button>
+      <span><embed src="lyrics\In My Feelings.txt" class="lyricsEmb" id="emb6"></span>
+    </div>
+    <div class="videoDiv"> <!--video7-->
+      <video width="300" height="200" controls>
+        <source src="mp4\Side Effects.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+      </video></br>
+      <audio controls>
+        <source src="mp3\Side Effects.mp3" type="audio/mp3">
+      </audio></br>
+      <a href="https://www.youtube.com/watch?v=Q7nt1f2Szn4&index=9&list=PLDIoUOhQQPlXzhp-83rECoLaV6BwFtNC4">The Chainsmokers - Side Effects</a></br>
+      <button id="btn7">Lyrics</button>
+      <span><embed src="lyrics\Side Effects.txt" class="lyricsEmb" id="emb7"></span>
+    </div>
+    <div class="videoDiv"> <!--video8-->
+      <video width="300" height="200" controls>
+        <source src="mp4\We Don t Talk Anymore.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+      </video></br>
+      <audio controls>
+        <source src="mp3\We Don t Talk Anymore.mp3" type="audio/mp3">
+      </audio></br>
+      <a href="https://www.youtube.com/watch?v=3AtDnEC4zak">Charlie Puth - We Don't Talk Anymore</a></br>
+      <button id="btn8">Lyrics</button>
+      <span><embed src="lyrics\We Don t Talk Anymore.txt" class="lyricsEmb" id="emb8"></span>
+    </div>
+    <div class="videoDiv"> <!--video9-->
+      <video width="300" height="200" controls>
+        <source src="mp4\Something Just Like This.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+      </video></br>
+      <audio controls>
+        <source src="mp3\Something Just Like This.mp3" type="audio/mp3">
+      </audio></br>
+      <a href="https://www.youtube.com/watch?v=FM7MFYoylVs">The Chainsmokers & Coldplay - Something Just Like This</a></br>
+      <button id="btn9">Lyrics</button>
+      <span><embed src="lyrics\Something Just Like This.txt" class="lyricsEmb" id="emb9"></span>
+    </div>
+    <div class="videoDiv"> <!--video10-->
+      <video width="300" height="200" controls>
+        <source src="mp4\See You Again.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+      </video></br>
+      <audio controls>
+        <source src="mp3\See You Again.mp3" type="audio/mp3">
+      </audio></br>
+      <a href="https://www.youtube.com/watch?v=RgKAFK5djSk">Wiz Khalifa - See You Again</a></br>
+      <button id="btn10">Lyrics</button>
+      <span><embed src="lyrics\See You Again.txt" class="lyricsEmb" id="emb10"></span>
+    </div>
+</div>
+</body>
+</html>
